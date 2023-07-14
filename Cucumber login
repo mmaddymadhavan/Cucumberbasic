@@ -1,0 +1,71 @@
+package steps;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriver.Options;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class LoginSteps {
+	WebDriver driver;
+
+	@Given("User navigate to the Bookcart application")
+	public void userNavigateToTheBookcartApplication() {
+	    
+	  
+	   System.setProperty("webdriver.chrome.driver", "D:\\Selenium\\Chrome driver files\\Chrome driver exact hey\\chromedriver_win32 (6)\\chromedriver.exe");
+	   driver= new ChromeDriver(); 
+	   driver.get("https://bookcart.azurewebsites.net/");
+	   Options manage= driver.manage();
+	   manage.timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+	   //driver.getTitle();
+	   System.out.println(driver.getTitle());
+	}
+
+	@And("User clicks on the login button")
+	public void userClicksOnTheLoginButton() {
+		driver.findElement(By.xpath("//span[contains(text(),'Login')]")).click();
+	    
+	    
+	}
+
+	@And("User enter the username as ortoni")
+	public void userEnterTheUsernameAsOrtoni() {
+	    
+	  driver.findElement(By.xpath("//input[@id='mat-input-0']")).sendKeys("ortoni");
+	  
+	}
+
+	@And("User enter the password as Pass{int}")
+	public void userEnterThePasswordAsPass(Integer int1) {
+		driver.findElement(By.xpath("//input[@id='mat-input-1']")).sendKeys("Pass1234");
+	    
+	    
+	}
+
+	@When("User click on the login button")
+	public void userClickOnTheLoginButton() {
+		driver.findElement(By.xpath("//body/app-root[1]/div[1]/app-login[1]/div[1]/div[2]/div[1]/"
+				+ "mat-card[1]/mat-card-content[1]/form[1]/mat-card-actions[1]/button[1]/span[1]")).click();
+	    
+	    
+	}
+
+	@Then("Login should be success")
+	public void loginShouldBeSuccess() {
+		String Text = driver.findElement(By.xpath("//body/app-root[1]/app-nav-bar[1]/mat-toolbar[1]/mat-toolbar-row[1]/div[3]/button[3]/span[1]")).getText();
+		System.out.println(Text);
+		driver.quit();
+		
+		
+	    
+	    
+	}
+
+}
